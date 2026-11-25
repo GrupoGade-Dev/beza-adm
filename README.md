@@ -1,11 +1,11 @@
 # Beza — assistente de IA do Grupo Gade
 
-O **Beza** é um plugin do Claude Code que ajuda colaboradores do Grupo Gade no dia a dia: **consulta o Painel de Resultados** (somente leitura, só o que o administrador liberar para a pessoa), **confere planilhas**, cria **dashboards**, **atas**, **procedimentos** e **checklists**, sempre com a regra **"sem conferência, sem entrega"**.
+O **Beza** é um plugin do Claude Code que ajuda colaboradores do Grupo Gade no dia a dia: **consulta o Painel de Resultados** (somente leitura, só o que o administrador liberar para a pessoa, da Inside Sales ou de todas as unidades), **confere planilhas**, cria **dashboards**, **atas**, **procedimentos** e **checklists**, sempre com a regra **"sem conferência, sem entrega"**.
 
 Este repositório é público de propósito (instalar não exige login no GitHub) e **não contém nenhuma senha, dado de cliente ou número do Painel**. Cada pessoa usa uma **senha própria do Beza**, entregue pelo administrador do Painel, que só abre o que ele liberou.
 
 ## Instalar (uma vez)
-Pré-requisitos: Claude Code instalado e logado, **Python 3.8+** e **Git for Windows** (no Windows).
+Pré-requisito: Claude Code instalado e logado (no Windows ele já pede o Git for Windows). **Não precisa instalar Python para consultar o Painel**: o Beza se conecta ao Painel direto pela internet. Se um dia você pedir uma planilha ou PDF e faltar Python, o próprio Beza explica e instala, com a sua autorização.
 
 Abra o Claude Code e cole as duas linhas, uma de cada vez:
 
@@ -34,20 +34,19 @@ Exemplos de pedidos:
 Arquivos gerados ficam em `Documentos/Beza Adm/`.
 
 ## Como o acesso ao Painel funciona (para o administrador)
-- No Painel, tela **Acessos do Beza** (só administrador): cria o acesso da pessoa, marca o que ela pode buscar, troca a senha, desativa ou revoga. **Mudou lá, vale na próxima consulta**, sem reinstalar nada.
-- O plugin só conhece a API somente leitura do Painel (`/api/beza/v1`). A permissão de cada informação é conferida **no servidor** a cada consulta; o Beza não tem como se dar acesso.
-- A senha fica na caixinha do plugin (guardada pelo Claude Code, fora da conversa e de arquivos do projeto) e chega à ponte `scripts/painel_mcp.py` por variável de ambiente.
+- No Painel, tela **Acessos do Beza** (só administrador): cria o acesso da pessoa, escolhe o **escopo** (só a Inside Sales ou todas as unidades), marca o que ela pode buscar, troca a senha, desativa ou revoga. **Mudou lá, vale na próxima consulta**, sem reinstalar nada.
+- O plugin só conhece o endereço MCP somente leitura do Painel (`/api/beza/mcp`). Escopo e permissão de cada informação são conferidos **no servidor** a cada consulta; o Beza não tem como se dar acesso.
+- A senha fica na caixinha do plugin (guardada pelo Claude Code, fora da conversa e de arquivos do projeto) e vai só no cabeçalho de autorização da conexão.
 
-## Requisitos
-- Python 3.8+ (a ponte do Painel usa só a biblioteca padrão; as skills de planilha pedem autorização para instalar `openpyxl` se faltar).
-- Chrome ou Edge (para gerar PDF).
+## Requisitos opcionais
+- Python 3.8+ e `openpyxl` (planilhas e dashboards) e Chrome ou Edge (PDF): o Beza pede autorização e instala se faltar.
 - Só para gravações de áudio/vídeo: `ffmpeg` e `openai-whisper`.
 
 ## Segurança
 - Não envia e-mail nem acessa servidor, banco ou ERP. A única saída para a rede é a consulta somente leitura ao Painel, limitada pelo que o Painel liberar.
-- Um hook bloqueia `ssh`, `sudo`, `docker`, `git push`, `rm -rf`, `curl | sh`, arquivos `.env`/chaves e a variável da senha. É uma barreira de processo; **a proteção real é o Painel** (senha por pessoa, permissão conferida no servidor, histórico de consultas).
+- Um hook bloqueia `ssh`, `sudo`, `docker`, `git push`, `rm -rf`, `curl | sh` e arquivos `.env`/chaves. É uma barreira de processo; **a proteção real é o Painel** (senha por pessoa, permissão conferida no servidor, histórico de consultas).
 - O original de qualquer planilha nunca é alterado: o Beza entrega uma cópia conferida.
 
 ## Manutenção
-Ao mudar algo: subir `version` em `.claude-plugin/plugin.json`, `claude plugin validate . --strict`, `python3 -m unittest discover -s tests`, commit e push. Quem usa roda o comando de atualização acima.
+Ao mudar algo: subir `version` em `.claude-plugin/plugin.json`, `claude plugin validate . --strict`, commit e push. Quem usa roda o comando de atualização acima.
 Conteúdo da empresa: `contexto/empresa.md`. Logos em `assets/logos/`.

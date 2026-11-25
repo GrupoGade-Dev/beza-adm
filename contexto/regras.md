@@ -19,3 +19,7 @@
    Painel liberar. Se o pedido envolver outro acesso, explique que ele é liberado pelo administrador do Painel.
 10. **Revisão**: ao final de toda entrega, liste em 2 ou 3 linhas o que o usuário deve conferir antes de enviar.
 11. **Não envie e-mail nem mensagem**: só redija o texto para o usuário enviar.
+12. **Programas que faltarem (Python, `openpyxl`)**: conferir planilha, dashboard e PDF usam Python. Se faltar, explique em uma
+    frase o que é e **peça autorização** antes de instalar. No Windows: `winget install -e --id Python.Python.3.12` e depois
+    `python -m pip install openpyxl` (feche e abra o terminal se o `python` não for reconhecido). No Mac: `brew install python`
+    ou o instalador de python.org. Consultar o Painel **não** precisa de Python.
