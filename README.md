@@ -7,16 +7,19 @@ Este repositório é público de propósito (instalar não exige login no GitHub
 ## Instalar (uma vez)
 Pré-requisitos: Claude Code instalado e logado, **Python 3.8+** e **Git for Windows** (no Windows).
 
-Cole **uma linha** no terminal:
+Abra o Claude Code e cole as duas linhas, uma de cada vez:
 
 ```
-claude plugin marketplace add GrupoGade-Dev/beza-adm && claude plugin install beza-adm@beza-adm
+/plugin marketplace add GrupoGade-Dev/beza-adm
+/plugin install beza-adm@beza-adm
 ```
 
-O Claude Code abre uma caixinha pedindo a **senha do Beza** (aparece mascarada). Cole a senha que o administrador entregou. Feche e abra o Claude Code: pronto.
+Ao instalar, o Claude Code abre uma caixinha pedindo a **senha do Beza** (aparece mascarada). Cole a senha que o administrador entregou. Feche e abra o Claude Code: pronto.
+
+Prefere o terminal? `claude plugin marketplace add GrupoGade-Dev/beza-adm && claude plugin install beza-adm@beza-adm`, e depois, dentro do Claude Code, `/plugin configure beza-adm@beza-adm` para colar a senha.
 
 - Senha errada ou trocada: `/plugin configure beza-adm@beza-adm` e cole a nova.
-- Atualizar o Beza: `claude plugin marketplace update beza-adm && claude plugin update beza-adm@beza-adm`.
+- Atualizar o Beza: `/plugin marketplace update beza-adm` e depois `/plugin update beza-adm@beza-adm`.
 - Teste: *"Beza, o que você consegue buscar no Painel?"*
 
 ## Usar
