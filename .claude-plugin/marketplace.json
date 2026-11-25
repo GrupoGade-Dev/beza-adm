@@ -1,0 +1,8 @@
+{
+  "name": "beza-adm",
+  "description": "Marketplace do Grupo Gade: Beza, assistente de IA para colaboradores",
+  "owner": { "name": "Grupo Gade Solution" },
+  "plugins": [
+    { "name": "beza-adm", "source": "." }
+  ]
+}

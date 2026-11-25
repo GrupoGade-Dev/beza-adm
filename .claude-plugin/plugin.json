@@ -1,0 +1,23 @@
+{
+  "name": "beza-adm",
+  "description": "Beza Gade — assistente de IA para colaboradores do Grupo Gade: consulta o Painel de Resultados (somente leitura, conforme as permissões que o administrador liberar), confere planilhas, cria dashboards, atas, procedimentos e checklists, com a regra \"sem conferência, sem entrega\".",
+  "version": "0.3.0",
+  "author": {
+    "name": "Grupo Gade Solution"
+  },
+  "agents": [
+    "./agents/beza.md"
+  ],
+  "skills": [
+    "./skills"
+  ],
+  "userConfig": {
+    "senha": {
+      "type": "string",
+      "title": "Senha do Beza",
+      "description": "Senha que o administrador do Painel entregou para você (aparece mascarada). Ela só abre as informações que o Painel liberou para o seu acesso.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

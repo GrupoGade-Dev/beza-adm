@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "painel": {
+      "command": "bash",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/painel-mcp.sh"],
+      "env": { "BEZA_PAINEL_TOKEN": "${user_config.senha}" }
+    }
+  }
+}
