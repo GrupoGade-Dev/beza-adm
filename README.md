@@ -5,22 +5,32 @@ O **Beza** é um plugin do Claude Code que ajuda colaboradores do Grupo Gade no 
 Este repositório é público de propósito (instalar não exige login no GitHub) e **não contém nenhuma senha, dado de cliente ou número do Painel**. Cada pessoa usa uma **senha própria do Beza**, entregue pelo administrador do Painel, que só abre o que ele liberou.
 
 ## Instalar (uma vez)
-Pré-requisito: Claude Code instalado e logado (no Windows ele já pede o Git for Windows). **Não precisa instalar Python para consultar o Painel**: o Beza se conecta ao Painel direto pela internet. Se um dia você pedir uma planilha ou PDF e faltar Python, o próprio Beza explica e instala, com a sua autorização.
+Pré-requisito: o **terminal do Claude** (comando `claude`). No app do Claude a tela de plugins só navega marketplaces que já existem; **adicionar** o marketplace do Beza é feito pelo terminal, uma única vez. Depois disso o app e o terminal usam o mesmo Beza.
 
-Abra o Claude Code e cole as duas linhas, uma de cada vez:
-
+**1. Instalar o terminal do Claude** (só uma vez). Windows, no PowerShell:
 ```
-/plugin marketplace add GrupoGade-Dev/beza-adm
-/plugin install beza-adm@beza-adm
+irm https://claude.ai/install.ps1 | iex
+```
+Feche e abra o PowerShell e confira com `claude --version`.
+
+**2. Adicionar e instalar o Beza** (uma linha de cada vez):
+```
+claude plugin marketplace add GrupoGade-Dev/beza-adm
+claude plugin install beza-adm@beza-adm --scope user
 ```
 
-Ao instalar, o Claude Code abre uma caixinha pedindo a **senha do Beza** (aparece mascarada). Cole a senha que o administrador entregou. Feche e abra o Claude Code: pronto.
+**3. Colocar a senha do Beza** (entregue pelo administrador do Painel). No app: **+ → Plugins → Manage plugins →** Beza **→ Configure options**. Ou pelo PowerShell, sem a senha ficar no histórico:
+```
+$s = Read-Host "Cole a senha do Beza" -AsSecureString
+$p = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($s))
+'{"senha":"' + $p + '"}' | claude plugin configure beza-adm@beza-adm --values-stdin
+```
 
-Prefere o terminal? `claude plugin marketplace add GrupoGade-Dev/beza-adm && claude plugin install beza-adm@beza-adm`, e depois, dentro do Claude Code, `/plugin configure beza-adm@beza-adm` para colar a senha.
+**4. Feche e abra o app do Claude.** Teste: *"Beza, o que você consegue buscar no Painel?"*
 
-- Senha errada ou trocada: `/plugin configure beza-adm@beza-adm` e cole a nova.
-- Atualizar o Beza: `/plugin marketplace update beza-adm` e depois `/plugin update beza-adm@beza-adm`.
-- Teste: *"Beza, o que você consegue buscar no Painel?"*
+- Senha trocada: repita o passo 3 com a nova.
+- Atualizar o Beza: `claude plugin marketplace update beza-adm` e `claude plugin update beza-adm@beza-adm`.
+- Conferir: `claude plugin list` e `claude plugin marketplace list`.
 
 ## Usar
 Exemplos de pedidos:
